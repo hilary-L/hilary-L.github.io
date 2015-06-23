@@ -110,7 +110,7 @@
 
 <p>Taking it line by line:</p>
 
-<p>We declare a new variable, newMonth, and set it equal to the store's current month number + the update. Update will either be 1 or -1, which corresponds to whether the user advanced the calendar forwards or backwards.</p>
+<p>We declare a new variable, newMonth, and set it equal to the store's current month number + the update variable. The update will either be 1 or -1, which corresponds to whether the user advanced the calendar forwards or backwards.</p>
 
 <p>The if statement checks to see whether the resulting variable is equal to either 0 or 13. If 0, that means that the calendar was initially displaying the month January and the user advanced backwards. If 13, the calendar was displaying December and the user advanced forwards. In both of those cases, we alter the year property in the store, set the month number property to the correct new value (December or January of the new year), create a new moment date object using the new year and month, and then obtain the name of the month using this new moment date object.</p>
 
@@ -120,7 +120,7 @@
 
 <p>The next portion of our store consists of our event helpers as well as our getter methods. The getter methods obtain the current values in the _store variable. The calendarStore object that these methods exist on is what we will export at the end of our store file, and what all of our other components will be able to access. This ensures that other components can't modify the _store variable on their own - all they can do is retrieve the data in _store, or trigger actions that the store processes using its private setter methods.</p>
 
-<p>This is one of the features that I like most about organizing a react app with flux. I find it easier to understand the changes to my app's data when every alteration of that data has to be processed through a store. By referencing my store files, I only have to reference those files to know exactly how my app's data will change when an action occurs.</p>
+<p>This is one of the features that I like most about organizing a react app with flux. I find it easier to understand the changes to my app's data when every alteration of that data has to be processed through a store. This way, I only have to reference the store files to know exactly how my app's data will change when an action occurs.</p>
 
 <p><img src="/images/store-5.jpg" alt=""></p>
 
