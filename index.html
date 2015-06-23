@@ -183,7 +183,7 @@
 
 <p>The componentDidMount in this example also sets the state for the component. This is done because in a child-component we calculate some data based on the initial values in our store. However, because we don't add our change listener until componentDidMount, the updating of the store based on those calculations does not trigger a re-render during the initial rendering process. To get around this, we tell the Cal component to update its state from the store after the initial render. This will trigger a re-render of the Cal component as well as all of its child components.</p>
 
-<p>Finally, we have our render method. We're not returning a whole lot here - just some container divs, with the  component inside. To  we pass Cal's state as props. </p>
+<p>Finally, we have our render method. We're not returning a whole lot here - just some container divs, with the component Month inside. To Month we pass Cal's state as props. </p>
 
 <h2>
 <a id="month" class="anchor" href="#month" aria-hidden="true"><span class="octicon octicon-link"></span></a>Month</h2>
