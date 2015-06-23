@@ -137,6 +137,8 @@
 <h3>
 <a id="constants" class="anchor" href="#constants" aria-hidden="true"><span class="octicon octicon-link"></span></a>Constants</h3>
 
+<p><img src="/images/constants-1.jpg" alt=""></p>
+
 <p>One more simple file before we take a look at our app's actions. Our constants file, located in constants/appConstants.js, is an object with properties that correspond to our various actions. If you think back to the switch statement in our store, you'll recall that it evaluated the value of action.actionType. The constants in this file are what that value will be. Each constant corresponds to an action.</p>
 
 <p>When I first was building an app using flux, I wondered why we had a constants file that simply had our action keys mirrored as strings. Why not just use strings everywhere? The answer apparently is for minification purposes, as minifiers can substitute a smaller identifier for the constant name, but would have to leave a string as its exact value. Having a constants file also comes in handy if your app grows in size, as you'll be able to tell all of the actions that your app responds to by referencing a single list, rather than multiple stores.</p>
