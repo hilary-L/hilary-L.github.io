@@ -85,11 +85,11 @@
 
 <p>Open up stores/calendarStore.js. The store file is relatively long, so let's go piece by piece.</p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiIQzd0RHBKLVRPLWc/view?usp=sharing" alt=""></p>
+<p><img src="/images/store-1.tiff" alt=""></p>
 
 <p>The first five lines of our store are where we create variables and include other portions of the app. In order they are: the dispatcher of our app, the constants that we'll use with our app's actions, objectAssign and EventEmitter which will give our store methods like on() and emit(), and moment.js, which we'll use when we set the initial state of our store.</p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiIRnJ6bWdRcC1LZGs/view?usp=sharing" alt=""></p>
+<p><img src="images/store-2.tiff" alt=""></p>
 
 <p>In the next portion of our store, we create a variable CHANGE_EVENT, and set it equal to the string 'change'. This is the variable that we will use when an action concludes to notify our views that they need to update themselves.</p>
 
@@ -97,7 +97,7 @@
 
 <p>In the case of moment, we need to set our initial state to reflect the current date. This is where we make use of moment.js. You'll notice that we seem to have some duplicates - todayYear and year, for example. The year property, along with num, month, and moment will all be modified by actions within our app. Today, todayYear, and todayMonth, by contrast will stay constant, reflecting the values that were calculated upon the app's initial render. We'll use these values for comparisons later in our app. The reason for the varying formats and properties on the moment object will become more clear when we look at the components of our app later in the article.</p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiITDZzN3RSLThCV1E/view?usp=sharing" alt=""></p>
+<p><img src="images/store-3.tiff" alt=""></p>
 
 <p>Next, we have our setter methods. These are the methods that our store will call when the dispatcher sends it a payload and an action type. All that these methods do is modify the values set in the _store variable. In the case of changeSearch and selectDay, the methods simply take the data passed to them and update the store accordingly.</p>
 
@@ -111,13 +111,13 @@
 
 <p>If the calendar was displaying a month other than January or December when the action occurred, then we simply increase/decrease the month number, create a new moment date object using the year value already in the store and the new month, and obtain the new month's name.</p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiITDBSSnExUnQ1cE0/view?usp=sharing" alt=""></p>
+<p><img src="images/store-4.tiff" alt=""></p>
 
 <p>The next portion of our store consists of our event helpers as well as our getter methods. The getter methods obtain the current values in the _store variable. The calendarStore object that these methods exist on is what we will export at the end of our store file, and what all of our other components will be able to access. This ensures that other components can't modify the _store variable on their own - all they can do is retrieve the data in _store, or trigger actions that the store processes using its private setter methods.</p>
 
 <p>This is one of the features that I like most about organizing a react app with flux. I find it easier to understand the changes to my app's data when every alteration of that data has to be processed through a store. By referencing my store files, I only have to reference those files to know exactly how my app's data will change when an action occurs.</p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiITVJnazRQUWNSQlE/view?usp=sharing" alt=""></p>
+<p><img src="images/store-5.tiff" alt=""></p>
 
 <p>Finally, we have our store's callback function and the export statement. With Flux, every store registers a callback function with the app's dispatcher. Typically, the callback is simply a switch statement that processes the data received from the dispatcher.</p>
 
@@ -130,7 +130,7 @@
 
 <p>On to the dispatcher! Open up dispatcher/AppDispatcher.js. </p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiIaGhaMXFCY2pMZ0U/view?usp=sharing" alt=""></p>
+<p><img src="images/dispatcher-1.tiff" alt=""></p>
 
 <p>Our dispatcher is relatively concise, and largely boilerplate. After creating our dispatcher at the top of the file we define its handleAction method. This method will be called by our actions. When called, it takes the data sent in by the action, sets a source (which, in the case of this app is always 'VIEW_ACTION', as none of our actions come from the server) and sets the action property to the data it received. This is what is then dispatched to the callbacks in our stores and processed by the switch statement we just saw in our store. Finally, we export the dispatcher.</p>
 
@@ -148,7 +148,7 @@
 
 <p>The last of our non-component files is our actions file, located at /actions/calendarActions.js.</p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiIaUVYbWhGSm1kLVU/view?usp=sharing" alt=""></p>
+<p><img src="images/actions-1.tiff" alt=""></p>
 
 <p>Our actions file imports our dispatcher and constants at the top. We then create and define our actions variable. Each method on this variable corresponds to the actions that we listed in our constants file. These are the methods that will be invoked by our views in response to user interaction. They are all similar - receive data from the view, and send it to the dispatcher along with an actionType. In the case of selectDay, we take only a portion of the data received from the view and send it to the dispatcher, rather than the entire object. Finally, we export calendarActions at the bottom, so that it will be available to our components.</p>
 
@@ -162,7 +162,7 @@
 
 <p>Our top-level component is located in components/Cal.js. The Cal component is, in the Flux world, known as a controller-view. This is a component that retrieves data from our store and passes that data down the component hierarchy in the form of props. While it's possible for any component to have state and retrieve its state from the store, it's a good idea to keep your stateful components at the top of your hierarchy. This helps to control what causes your components to render.</p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiIc0RYTllNSDFQbXM/view?usp=sharing" alt=""></p>
+<p><img src="images/cal-1.tiff" alt=""></p>
 
 <p>Our component starts off by including react, moment, our child component Month, our store, and our actions.</p>
 
@@ -181,7 +181,7 @@
 
 <p>Our next component is the most complex of our application. Inside of the month component is where we do a lot of the heavy lifting when it comes to computing what we need to display our calendar.</p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiId0l3M2lnTlBpdVE/view?usp=sharing" alt=""></p>
+<p><img src="images/month-1.tiff" alt=""></p>
 
 <p>At the top of our month component we include react, a version of moment.js that includes support for calculating U.S. holidays, our child-components Days, TaskList, and TaskSearch, the node-calendar library, and our app's actions.</p>
 
@@ -193,13 +193,13 @@
 
 <p>We've chained .map onto the result of the array returned by itermonthdates. To map we pass a function, which will return an object for each date in the array. This function uses moment.js to calculate the year, month number, month name, day number, and any holidays that occur on that date. </p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiIWlUzSzY3R2JJMWc/view?usp=sharing" alt=""></p>
+<p><img src="images/month-2.tiff" alt=""></p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiIRF9EdFFCX3lBSmM/view?usp=sharing" alt=""></p>
+<p><img src="images/month-3.tiff" alt=""></p>
 
 <p>The next portion of our component is a bit unusual. Were our app a real task calendar, we would pull in the tasks for each date from a database. Because our app isn't hooked up to a database, we're going to populate some tasks for demonstration purposes. To do that, we take our newly created days array and call map on it. Within the function we pass to map, we check to see if the index of the day in question is divisible by 2, 3, or neither. For each situation, we create a new object including all of the previous data, and adding on an array of occasions and an array of tasks. Each task also has a property to detail whether the task in question requires help. </p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiIbzZEalJCano4Tjg/view?usp=sharing" alt=""></p>
+<p><img src="images/month-4.tiff" alt=""></p>
 
 <p>Finally, we have our render method. The return for our month component is a bit more complex than it was for our cal component.</p>
 
@@ -220,7 +220,7 @@
 
 <p>Our next component is Days. </p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiIVGZoMl92Zk5rN00/view?usp=sharing" alt=""></p>
+<p><img src="images/days-1.tiff" alt=""></p>
 
 <p>We start off by including our Occasions and Tasks child components, as well as our calendar actions.</p>
 
@@ -241,7 +241,7 @@
 <h2>
 <a id="occasions" class="anchor" href="#occasions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Occasions</h2>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiILXMxZmpDVnhMOGM/view?usp=sharing" alt=""></p>
+<p><img src="images/occasions-1.tiff" alt=""></p>
 
 <p>Our Occasions component is pretty simple. All we have is the render method. Before returning anything, we first check to see if the occasions array we passed in as a prop has a length greater then 0. Because, why render some occasions if there are none? If the array has a length, we create a new variable, run map on the prop, and return JSX of a </p><h3>
 <a id="-with-the-occassion-in-it-then-in-the-return-from-the-render-method-we-have-the-occasions-variable-we-just-created-whether-it-is-has-occasions-in-it-or-is-empty" class="anchor" href="#-with-the-occassion-in-it-then-in-the-return-from-the-render-method-we-have-the-occasions-variable-we-just-created-whether-it-is-has-occasions-in-it-or-is-empty" aria-hidden="true"><span class="octicon octicon-link"></span></a> with the occassion in it. Then, in the return from the render method, we have the occasions variable we just created, whether it is has occasions in it or is empty.
@@ -251,7 +251,7 @@
 <h2>
 <a id="tasks" class="anchor" href="#tasks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tasks</h2>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiIWk95NHNPQ1A3Qms/view?usp=sharing" alt=""></p>
+<p><img src="images/tasks-1.tiff" alt=""></p>
 
 <p>Our Tasks component is almost identical to the Occasions component we just looked at. The only difference is that, in Tasks, like with Days, we have a variable for our classes that is filled based on whether or not the task we're returning has its help status set to true. Like with the Occasions component, if there are no tasks on a given day, we return an empty array.</p>
 
@@ -260,7 +260,7 @@
 
 <p>Still with me? Good! Only two more components to go and we'll be done with our app.</p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiILWczRkg2MG5mS2M/view?usp=sharing" alt=""></p>
+<p><img src="images/tasklist-1.tiff" alt=""></p>
 
 <p>Traveling back up our component hierarchy, we're going to take a look at the TaskList component. This component displays a list of occasions and tasks from a day that the user has clicked on.</p>
 
@@ -277,7 +277,7 @@
 
 <p>Last component! Woohoo!</p>
 
-<p><img src="https://drive.google.com/file/d/0B3msKW_N2xiIOGkxTEltTVFKdHc/view?usp=sharing" alt=""></p>
+<p><img src="images/tasksearch.tiff" alt=""></p>
 
 <p>By now, the beginning of our component should be familiar to you. We include react, our Tasks and Occasions child components, and our calendar actions.</p>
 
