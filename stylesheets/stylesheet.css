@@ -127,6 +127,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28aad4', end
   right: 15%;
 }
 
+.github-logo a {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.github-logo a:hover {
+  text-decoration: none;
+}
+
 
 .main-content :first-child {
   margin-top: 0; }
