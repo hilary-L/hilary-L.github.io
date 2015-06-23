@@ -21,6 +21,8 @@
 
 <p>While you need not have built an app with react to follow along, you should have a decent understanding of javascript and be familiar with what react is. If you'd like a deeper introduction to react, check out <a href="http://tylermcginnis.com/reactjs-tutorial-a-comprehensive-guide-to-building-apps-with-react/">part one</a> of Tyler McGinnis' series on react and then come on back.</p>
 
+<p>As the scope of this article is limited to how to structure a calendar/task app using react and flux, we aren't going to be using a database to store our task information. Rather, we will generate placeholder tasks during the rendering process. If you were to create a calendar/task app for a real site, your task information would be pulled from a database and stored in your app's state, in order to allow for modification and updates.</p>
+
 <p><img src="/images/AppPreview.png" alt="Preview of the finished calendar"></p>
 
 <h1>
@@ -204,7 +206,7 @@
 
 <p><img src="/images/month-3.jpg" alt=""></p>
 
-<p>The next portion of our component is a bit unusual. Were our app a real task calendar, we would pull in the tasks for each date from a database. Because our app isn't hooked up to a database, we're going to populate some tasks for demonstration purposes. To do that, we take our newly created days array and call map on it. Within the function we pass to map, we check to see if the index of the day in question is divisible by 2, 3, or neither. For each situation, we create a new object including all of the previous data, and adding on an array of occasions and an array of tasks. Each task also has a property to detail whether the task in question requires help. </p>
+<p>The next portion of our component is where we create our placeholder data. To do that, we take our newly created days array and call map on it. Within the function we pass to map, we check to see if the index of the day in question is divisible by 2, 3, or neither. For each situation, we create a new object including all of the previous data, and adding on an array of occasions and an array of tasks. Each task also has a property to detail whether the task in question requires help. </p>
 
 <p><img src="/images/month-4.jpg" alt=""></p>
 
