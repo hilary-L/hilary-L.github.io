@@ -123,8 +123,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28aad4', end
 
 .github-logo {
   position: absolute;
-  top: 20%;
-  right: 15%;
+  top: 25%;
+  right: 10%;
 }
 
 .github-logo:hover {
@@ -135,6 +135,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28aad4', end
   color: white;
   font-size: 1.5rem;
   display: inline-block;
+  margin-left: 0.5rem;
 }
 
 
