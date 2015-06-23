@@ -55,7 +55,7 @@ a {
 
 .page-header {
   color: #fff;
-  text-align: center;
+  text-align: left;
   background: rgb(40,170,212); /* Old browsers */
 background: -moz-linear-gradient(-45deg, rgba(40,170,212,1) 0%, rgba(117,161,225,1) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(40,170,212,1)), color-stop(100%,rgba(117,161,225,1))); /* Chrome,Safari4+ */
@@ -80,7 +80,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28aad4', end
 
 .project-name {
   margin-top: 0;
-  margin-bottom: 0.1rem; }
+  margin-bottom: 0.1rem; 
+}
 
 @media screen and (min-width: 64em) {
   .project-name {
@@ -110,6 +111,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28aad4', end
 @media screen and (max-width: 42em) {
   .project-tagline {
     font-size: 1rem; } }
+
+.project-name {
+  width: 50%;
+}
+
+.project-tagline {
+  width: 50%;
+}
 
 .main-content :first-child {
   margin-top: 0; }
