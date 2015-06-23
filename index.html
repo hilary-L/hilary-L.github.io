@@ -64,13 +64,13 @@
 
 <p>Before we get into the meat of all of our components, we're going to go over how this project uses Flux and and take a look at how the project's store, dispatcher, and actions are set up.</p>
 
-<p>If you've read articles on react before, you've probably heard of flux, but you may not have used it, as not ever react tutorial app is built using flux. Flux is Facebook's application architecture for structuring react applications. You don't have to use flux to make a react application - an application can work just fine without it, or you can use one of the several flux implementations that the community has created, like Reflux or Alt.</p>
+<p>If you've read articles on react before, you've probably heard of flux, but you may not have used it, as not every react tutorial app is built using flux. Flux is Facebook's application architecture for structuring react applications. You don't have to use flux to make a react application - an application can work just fine without it, or you can use one of the several flux implementations that the community has created, like Reflux or Alt.</p>
 
 <p>So, if an app doesn't need to use flux, then why use it? The flux architecture exists to help make managing data in a react application easier. Without flux, your react components have to take care of the business of managing state and responding to actions to change state all by themselves. While this isn't significant for smaller, simple apps, when your apps start getting larger and involving more pieces, having your state wrapped up in individual components can get hairy quite quickly.</p>
 
-<p>With flux, all of your data is stored in your stores. An application can have many stores, typically one for each discrete area of the app, and your components can listen for changes from several stores. When your components receive change events, they update their state and trigger a re-render in response. Though this may seem elaborate, with react's virtual DOM, this entire process is amazingly fast. And, with flux's dispatcher, as your app increases in complexity, you can update your stores in specific orders depending on the action that occurs.</p>
+<p>With flux, all of your data is stored in your stores. An application can have many stores, typically one for each discrete area of the app, and your components can listen for changes from several stores. When your components receive change events, they update their state and trigger a re-render in response. Though this may seem elaborate, with react's virtual DOM, this entire process is amazingly fast. And, with flux's dispatcher, as your app increases in complexity, you can update your stores in a specific order depending on the action that occurs.</p>
 
-<p>The main pieces of a flux application are the components, stores, and the dispatcher. Our application has several components, one store, and a dispatcher. We also have a file containing our constants and our actions, which work with the store and dispatcher to handle actions that come from our components, typically in response to events.</p>
+<p>The main pieces of a flux application are the components, stores, dispatcher, and the actions. Our application has several components, one store, one dispatcher, and a few actions. We also have a file containing our constants, which our store uses to process the different types of actions it receives from the dispatcher..</p>
 
 <p>From the flux docs, his is what the basic flux data flow looks like:</p>
 
@@ -78,7 +78,7 @@
 
 <p>Specific to this app, here's an example of how ours will work:</p>
 
-<p><img src="images/reactdiagram.jpg" style="max-width: 650px"></p>
+<p><img src="images/reactdiagram(1).jpg" style="max-width: 650px"></p>
 
 <h2>
 <a id="store-dispatcher-actions" class="anchor" href="#store-dispatcher-actions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Store, Dispatcher, Actions</h2>
