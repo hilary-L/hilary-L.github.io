@@ -106,7 +106,7 @@
 
 <p>Next, we have our setter methods. These are the methods that our store will call when the dispatcher sends it a payload and an action type. All that these methods do is modify the values set in the _store variable. In the case of changeSearch and selectDay, the methods simply take the data passed to them and update the store accordingly.</p>
 
-<p>For updateMonth, we do a bit of work on the data that is passed using moment.js. The updateMonth method is going to be response to a user changing the month/year of the calendar. Therefore, when this action happens, we need to update the store to reflect the new month, and calculate all of the properties in response. </p>
+<p>For updateMonth, we do a bit of work on the data that is passed using moment.js. The updateMonth method is going to be invoked in response to a user changing the month/year of the calendar. Therefore, when this action happens, we need to update the store to reflect the new month, and calculate all of the properties in response. </p>
 
 <p>Taking it line by line:</p>
 
