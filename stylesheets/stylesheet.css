@@ -120,6 +120,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28aad4', end
   width: 50%;
 }
 
+.github-logo {
+  position: absolute;
+  top: 20%;
+  right: 15%;
+}
+
+
 .main-content :first-child {
   margin-top: 0; }
 .main-content img {
