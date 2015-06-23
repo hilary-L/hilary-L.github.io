@@ -29,16 +29,16 @@
 <h2>
 <a id="gulp-and-dependencies" class="anchor" href="#gulp-and-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gulp and Dependencies</h2>
 
-<p>You can find the repo for the finished app here. If you'd like to start with a blank slate, use the project skeleton instead. The skeleton has the entire scaffolding for the project set up, though all of the react files are blank. If you use the skeleton and follow along with the article, you will end up with a functional calendar at the end.</p>
+<p>You can find the <a href="https://github.com/hilary-L/invision-cal">repo for the finished app here</a>. If you'd like to start with a blank slate, use the <a href="https://github.com/hilary-L/invision-cal-skeleton">project skeleton</a> instead. The skeleton has the entire scaffolding for the project set up, though all of the react files are blank. If you use the skeleton and follow along with the article, you will end up with a functional calendar at the end.</p>
 
-<p>Before cloning this project, make sure that you have <a href="https://nodejs.org/download/">node.js</a> installed. You will also need to have gulp installed globally. After installing node, open your terminal and run:</p>
+<p>Before cloning this project, make sure that you have <a href="https://nodejs.org/download/">node.js</a> installed. You will also need to have gulp installed globally. To do this, after installing node, open your terminal and run:</p>
 
 <p><code>npm install --global gulp</code></p>
 
 <p>Then, to get started with the skeleton, navigate to where you would like your project folder to be and run:
---git clone part--
---cd into directory--
---npm install--</p>
+<p><code>git clone https://github.com/hilary-L/invision-cal-skeleton.git</code></p>
+<p><code>cd invision-cal-skeleton</code></p>
+<p><code>npm install</code></p>
 
 <p>This will install all of the dependencies for the project and get us ready to put in our react components. Gulp will process our JSX into javascript using browserify/reactify, and will compile our scss files using gulp-compass. The gulp workflow in this project is based off of the workflow demonstrated by <a href="http://tylermcginnis.com/reactjs-tutorial-pt-2-building-react-applications-with-gulp-and-browserify/">part two</a> of Tyler McGinnis' series, but has been modified to include tasks to take care of our stylesheets. I won't be going over how the gulpfile works to process our files, as it's outside the scope of this article. If you would like more information on how to use gulp, browserify, and reactify for your react project, check out Tyler McGinnis' series, and take a look at gulpfile.js in your project folder to see how the Sass tasks have been added in.</p>
 
