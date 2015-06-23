@@ -113,7 +113,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28aad4', end
     font-size: 1rem; } }
 
 .project-name {
-  width: 50%;
+  width: 60%;
+  line-height: 1.2;
 }
 
 .project-tagline {
