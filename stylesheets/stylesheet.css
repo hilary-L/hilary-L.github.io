@@ -4,7 +4,7 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Muli", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #606c71; }
@@ -56,8 +56,15 @@ a {
 .page-header {
   color: #fff;
   text-align: center;
-  background-color: #159957;
-  background-image: linear-gradient(120deg, #155799, #159957); }
+  background: rgb(40,170,212); /* Old browsers */
+background: -moz-linear-gradient(-45deg, rgba(40,170,212,1) 0%, rgba(117,161,225,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(40,170,212,1)), color-stop(100%,rgba(117,161,225,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(-45deg, rgba(40,170,212,1) 0%,rgba(117,161,225,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(-45deg, rgba(40,170,212,1) 0%,rgba(117,161,225,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(-45deg, rgba(40,170,212,1) 0%,rgba(117,161,225,1) 100%); /* IE10+ */
+background: linear-gradient(135deg, rgba(40,170,212,1) 0%,rgba(117,161,225,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#28aad4', endColorstr='#75a1e1',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
 
 @media screen and (min-width: 64em) {
   .page-header {
@@ -112,7 +119,9 @@ a {
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-weight: normal;
-  color: #159957; }
+  color: #00B9FF;
+  border-left: 5px solid #00B9FF;
+  padding-left: 5px; }
 .main-content p {
   margin-bottom: 1em; }
 .main-content code {
