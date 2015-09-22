@@ -17,13 +17,15 @@
     </section>
 
     <section class="main-content">
-      <p>This article will detail the building of a Task Calendar app using React.js, Flux, and styles based on Invision's recently released to-do app kit. This is part one of a two-part series. Part two will introduce new features and look at making a mobile version of the calendar using react native. In this article we'll go over the structure of each JSX component as well as the overall structure of the application. I'll also discuss issues that came up as I was making the calendar, and how I resolved them.</p>
+      <p>This is the beginning of a series of articles on the construction of a fully featured task calendar in React and Flux. The calendar uses React Router and connects to an API to pull/update events. In the series as a whole I'll go through the overall structure of the calendar as well as each indiviudal component. I'll also discuss issues that came up as I was making the calendar, and how I resolved them.</p>
+
+      <p>You can see a finished version of the calendar at: https://react-task-calendar.herokuapp.com</p>
 
 <p>While you need not have built an app with react to follow along, you should have a decent understanding of javascript and be familiar with what react is. If you'd like a deeper introduction to react, check out <a href="http://tylermcginnis.com/reactjs-tutorial-a-comprehensive-guide-to-building-apps-with-react/">part one</a> of Tyler McGinnis' series on react and then come on back.</p>
 
-<p>As the scope of this article is limited to how to structure a task calendar app using react and flux, we aren't going to be using a database to store our task information. Rather, we will generate placeholder tasks during the rendering process. If you were to create a task calendar app for a real site, your task information would be pulled from a database and stored in your app's state, in order to allow for modification and updates.</p>
+<p>Part one focuses on setup and the overall structure of the calendar and goes through an explanation of how the components fit together to make the entire application. We'll also touch on how the calendar retrieves events from the API. Part two looks at the individual components and views. Part three focuses on the actions, including the search and filtering of events. Finally, part four contains closing thoughts on the app as well as a summary of the topics covered.</p>
 
-<p><img src="/images/AppPreview.png" alt="Preview of the finished calendar"></p>
+<p><img src="/images/Finished Calendar.png" alt="Preview of the finished calendar"></p>
 
 <h1>
 <a id="1-setup" class="anchor" href="#1-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Setup</h1>
@@ -85,7 +87,7 @@
 <h2>
 <a id="store-dispatcher-actions" class="anchor" href="#store-dispatcher-actions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Store, Dispatcher, Actions</h2>
 
-<p>Before we fill in our components, let's take a look at what makes up the rest of our application. The store is where the state of our application is contained, while the dispatcher and actions are what we use to modify that data in response to events. We'll start with the heart of our application, the store.</p>
+<!-- <p>Before we fill in our components, let's take a look at what makes up the rest of our application. The store is where the state of our application is contained, while the dispatcher and actions are what we use to modify that data in response to events. We'll start with the heart of our application, the store.</p>
 
 <h3>
 <a id="store" class="anchor" href="#store" aria-hidden="true"><span class="octicon octicon-link"></span></a>Store</h3>
@@ -301,7 +303,7 @@
 
 <p>Finally, we return some JSX, which formats our tasksearch box. Here we have a header, our input search box with its onChange set to this.handleChange, and our results. The results is populated with the newDaysList variable we just created above.</p>
 
-<p>And, that's it. Remember to have your gulp or gulp production tasks run after you fill in all the react files. Then, fire up index.html in your browser to see your completed task calendar app. I hope this article helped you understand react and flux a little bit better and gave you some ideas for how to structure your own app!</p>
+<p>And, that's it. Remember to have your gulp or gulp production tasks run after you fill in all the react files. Then, fire up index.html in your browser to see your completed task calendar app. I hope this article helped you understand react and flux a little bit better and gave you some ideas for how to structure your own app!</p> -->
 
     </section>
 
