@@ -61,8 +61,6 @@
 
 <p>I've left the complete styles for the project in the project skeleton. You can see the Sass in \sass\app.scss, and the compiled css in \src\css\app.css. In order to complete this article you won't need to modify the styles for the project, but if you wish to make changes to the app.scss file, make sure that you're gulp task is running so that your main stylesheet is updated in response to your changes.</p>
 
-<p>As I said above, the styles are loosely based off of Invision's to-do kit. The kit itself isn't needed until part two of this series, but if you're building any kind of calendar or to-do app, I'd suggest taking a look at the kit for inspiration.</p>
-
 <h1>
 <a id="2-the-flux-structure" class="anchor" href="#2-the-flux-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. The Flux Structure</h1>
 
@@ -87,50 +85,193 @@
 <h2>
 <a id="store-dispatcher-actions" class="anchor" href="#store-dispatcher-actions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Store, Dispatcher, Actions</h2>
 
-<p>Check back soon for the remainder of this article!</p>
-
-<!-- <p>Before we fill in our components, let's take a look at what makes up the rest of our application. The store is where the state of our application is contained, while the dispatcher and actions are what we use to modify that data in response to events. We'll start with the heart of our application, the store.</p>
+<p>Before we explore the app's components, let's take a look at what makes up the rest of our application. The store is where the state of our application is contained, while the dispatcher and actions are what we use to modify that data in response to events. We'll start with the heart of our application, the store.</p>
 
 <h3>
 <a id="store" class="anchor" href="#store" aria-hidden="true"><span class="octicon octicon-link"></span></a>Store</h3>
 
 <p>Open up stores/calendarStore.js. The store file is relatively long, so let's go piece by piece.</p>
 
-<p><img src="/images/store-1.jpg" alt=""></p>
+<code>var AppDispatcher = require('../dispatcher/AppDispatcher');
+var appConstants = require('../constants/appConstants');
+var objectAssign = require('react/lib/Object.assign');
+var EventEmitter = require('events').EventEmitter;
+var moment = require('moment');
 
-<p>The first five lines of our store are where we create variables and include other portions of the app. In order they are: the dispatcher of our app, the constants that we'll use with our app's actions, objectAssign and EventEmitter which will give our store methods like on() and emit(), and moment.js, which we'll use when we set the initial state of our store.</p>
+var CHANGE_EVENT = 'change';
+</code>
 
-<p><img src="/images/store-2.jpg" alt=""></p>
+<p>The beginning of our store is where we include our actions, constants, object assign, and event emitter. Object assign and event emitter are part of the flux boilerplate code. Together they allow the store to emit change events in response to actions received from components. Our top-level controller view components listen for change events and respond by refreshing their data and re-rendering themselves and their child components.</p>
 
-<p>In the next portion of our store, we create a variable CHANGE_EVENT, and set it equal to the string 'change'. This is the variable that we will use when an action concludes to notify our views that they need to update themselves.</p>
+<p>This portion of our store consists of our event helpers as well as our getter methods. The getter methods obtain the current values in the _store variable. The calendarStore object that these methods exist on is what we will export at the end of our store file, and what all of our other components will be able to access. This ensures that other components can't modify the _store variable on their own - all they can do is retrieve the data in _store, or trigger actions that the store processes using its private setter methods.</p>
 
-<p>Next, we create the _store variable, which is our data model. Store is an object that contains properties for "moment", "selectedDay", and "search". Each of these is an object with its own properties. Here, we set the initial state of our store. This is what our data will be set to on the initial render of our app. In the case of both selectedDay and search, the values are null, empty arrays, and strings.</p>
-
-<p>In the case of moment, we need to set our initial state to reflect the current date. This is where we make use of moment.js. You'll notice that we seem to have some duplicates - todayYear and year, for example. The year property, along with num, month, and moment will all be modified by actions within our app. Today, todayYear, and todayMonth, by contrast will stay constant, reflecting the values that were calculated upon the app's initial render. We'll use these values for comparisons later in our app. The reason for the varying formats and properties on the moment object will become more clear when we look at the components of our app later in the article.</p>
-
-<p><img src="/images/store-3.jpg" alt=""></p>
-
-<p>Next, we have our setter methods. These are the methods that our store will call when the dispatcher sends it a payload and an action type. All that these methods do is modify the values set in the _store variable. In the case of changeSearch and selectDay, the methods simply take the data passed to them and update the store accordingly.</p>
-
-<p>For updateMonth, we do a bit of work on the data that is passed using moment.js. The updateMonth method is going to be invoked in response to a user changing the month/year of the calendar. Therefore, when this action happens, we need to update the store to reflect the new month, and calculate all of the properties in response. </p>
-
-<p>Taking it line by line:</p>
-
-<p>We declare a new variable, newMonth, and set it equal to the store's current month number + the update variable. The update will either be 1 or -1, which corresponds to whether the user advanced the calendar forwards or backwards.</p>
-
-<p>The if statement checks to see whether the resulting variable is equal to either 0 or 13. If 0, that means that the calendar was initially displaying the month January and the user advanced backwards. If 13, the calendar was displaying December and the user advanced forwards. In both of those cases, we alter the year property in the store, set the month number property to the correct new value (December or January of the new year), create a new moment date object using the new year and month, and then obtain the name of the month using this new moment date object.</p>
-
-<p>If the calendar was displaying a month other than January or December when the action occurred, then we simply increase/decrease the month number, create a new moment date object using the year value already in the store and the new month, and obtain the new month's name.</p>
-
-<p><img src="/images/store-4.jpg" alt=""></p>
-
-<p>The next portion of our store consists of our event helpers as well as our getter methods. The getter methods obtain the current values in the _store variable. The calendarStore object that these methods exist on is what we will export at the end of our store file, and what all of our other components will be able to access. This ensures that other components can't modify the _store variable on their own - all they can do is retrieve the data in _store, or trigger actions that the store processes using its private setter methods.</p>
+<code>
+var calendarStore = objectAssign({}, EventEmitter.prototype, {
+  addChangeListener: function(cb) {
+    this.on(CHANGE_EVENT, cb);
+  },
+  removeChangeListener: function(cb) {
+    this.removeListener(CHANGE_EVENT, cb);
+  },
+  getToday: function() {
+    return _store.today;
+  },
+  getDisplayed: function() {
+    return _store.displayed;
+  },
+  getSelected: function() {
+    return _store.selectedDay;
+  },
+  getSearch: function() {
+    return _store.search;
+  },
+  getEvents: function() {
+    return _store.events;
+  },
+  getButton: function() {
+    return _store.buttonBar;
+  },
+  getFilter: function() {
+    return _store.filter;
+  }
+});
+</code>
 
 <p>This is one of the features that I like most about organizing a react app with flux. I find it easier to understand the changes to my app's data when every alteration of that data has to be processed through a store. This way, I only have to reference the store files to know exactly how my app's data will change when an action occurs.</p>
 
-<p><img src="/images/store-5.jpg" alt=""></p>
+<p>Next, we create the _store variable, which is our data model. Store is an object that contains properties for all of the necessary data in our application. Here, we set the initial state of our store. This is what our data will be set to on the initial render of our app.</p>
+
+<code>
+var _store = {
+  // today is set when app loads and does not change
+  today: {
+    date: moment(),
+    year: moment().year(),
+    month: moment().format('MMMM'),
+    // monthIndex is the month number obtained from moment, incremented by 1 to match node-calendar's format
+    monthIndex: moment().month() + 1,
+    weekIndex: moment().week(),
+    dayIndex: moment().date(),
+    time: moment().format('h:mm a')
+
+  },
+  // display is the date information that is currently displayed in the calendar view, and is updated via user interaction
+  // we initially set displayed to match today's date so that calendar can render before API returns data
+  displayed: {
+    date: moment(),
+    year: moment().year(),
+    month: moment().format('MMMM'),
+    monthIndex: moment().month() + 1,
+    weekIndex: moment().week(),
+    dayIndex: moment().date(),
+    time: moment().format('h:mm a')
+  },
+  // selected is the current user selected day. On initial state it is set to today. Selected day is the day displayed in the task card.
+  selectedDay: {
+    date: moment(),
+    year: moment().year(),
+    month: moment().format('MMMM'),
+    monthIndex: moment().month() + 1,
+    weekIndex: moment().week(),
+    dayIndex: moment().date(),
+  },
+  search: '',
+  events: [],
+  // Button bar is the navigation bar on the top of the calendar. Each property controls whether a specific button has an "active" style applied.
+  buttonBar: {
+    dayActive: false,
+    weekActive: false,
+    monthActive: true,
+    yearActive: false
+  },
+  filter: {
+    helpShown: true,
+    needsMetShown: true,
+    occasionsShown: true
+  }
+  
+}
+</code>
+
+<p>Next, we have our setter methods. These are the methods that our store will call when the dispatcher sends it a payload and an action type. All that these methods do is modify the values set in the _store variable. In the case of changeSearch and selectDay, the methods simply take the data passed to them and update the store accordingly.</p>
+
+<code>
+var changeButton = function(data) {
+  _store.buttonBar = data;
+}
+
+var changeSearch = function(data) {
+  _store.search = data;
+};
+
+var changeFilter = function(data) {
+  _store.filter = data;
+};
+
+var selectDay = function(data) {
+  _store.selectedDay = data;
+};
+
+var changeDisplay = function(data) {
+
+  _store.displayed = data;
+};
+
+var updateEvents = function(data) {
+  var formattedEvents = data.events.map(function(item) {
+      return(
+        {
+          category: item.category,
+          content: item.content,
+          help: item.help,
+          moment: moment(item.date),
+          time: moment(item.date).format('h:mm a'),
+          hour: moment(item.date).format('h a')
+        }
+      )
+    });
+  _store.events = formattedEvents;
+
+};
+</code>
+
+<p>For updateEvents, we do a bit of work on the data that is passed using moment.js. When we receive events from our API, they come in a form that is rather raw, so in the method that sets our store's events property we do some work on the data to manipulate each event into a format that our components can make use of later. </p>
 
 <p>Finally, we have our store's callback function and the export statement. With Flux, every store registers a callback function with the app's dispatcher. Typically, the callback is simply a switch statement that processes the data received from the dispatcher.</p>
+
+<code>
+calendarStore.dispatchToken = AppDispatcher.register(function(action){
+  switch(action.actionType){
+    case appConstants.ActionTypes.CHANGE_BUTTON:
+      changeButton(action.data);
+      calendarStore.emit(CHANGE_EVENT);
+      break;
+    case appConstants.ActionTypes.CHANGE_SEARCH:
+      changeSearch(action.data);
+      calendarStore.emit(CHANGE_EVENT);
+      break;
+    case appConstants.ActionTypes.SELECT_DAY:
+      selectDay(action.data);
+      calendarStore.emit(CHANGE_EVENT);
+      break;
+    case appConstants.ActionTypes.RECEIVE_EVENTS:
+      updateEvents(action.json);
+      calendarStore.emit(CHANGE_EVENT);
+      break;
+    case appConstants.ActionTypes.CHANGE_DISPLAY:
+      changeDisplay(action.data);
+      calendarStore.emit(CHANGE_EVENT);
+      break;
+    case appConstants.ActionTypes.CHANGE_FILTER:
+      changeFilter(action.data);
+      calendarStore.emit(CHANGE_EVENT);
+    default:
+      return true;
+  }
+});
+
+module.exports = calendarStore;
+</code>
 
 <p>First, we declare a variable action and set it equal to the action property on the payload coming from the dispatcher. This property is going to consist of an action type, as well as the data sent to the dispatcher. Then, we have a switch statement that, based on the value of action.actionType, calls one of our setter functions that we defined above, sending along the data from the payload. After that function finishes, we emit a change event to notify our views that the store has been updated.</p>
 
@@ -141,14 +282,46 @@
 
 <p>On to the dispatcher! Open up dispatcher/AppDispatcher.js. </p>
 
-<p><img src="/images/dispatcher-1.jpg" alt=""></p>
+<code>
+var AppDispatcher = require('flux').Dispatcher;
+
+module.exports = new AppDispatcher();
+</code>
 
 <p>Our dispatcher is relatively concise, and largely boilerplate. After creating our dispatcher at the top of the file we define its handleAction method. This method will be called by our actions. When called, it takes the data sent in by the action, sets a source (which, in the case of this app is always 'VIEW_ACTION', as none of our actions come from the server) and sets the action property to the data it received. This is what is then dispatched to the callbacks in our stores and processed by the switch statement we just saw in our store. Finally, we export the dispatcher.</p>
 
 <h3>
 <a id="constants" class="anchor" href="#constants" aria-hidden="true"><span class="octicon octicon-link"></span></a>Constants</h3>
 
-<p><img src="/images/constants-1.jpg" alt="" style="max-width: 450px"></p>
+<code>
+var APIRoot = "https://sheltered-shelf-4779.herokuapp.com";
+
+var appConstants = {
+
+  APIEndpoints: {
+    LOGIN: APIRoot + "/api/v1/login",
+    EVENTS: APIRoot + "/api/v1/events",
+  },
+
+  ActionTypes: {
+    CHANGE_SEARCH: "CHANGE_SEARCH",
+    SELECT_DAY: "SELECT_DAY",
+    LOGIN_REQUEST: "LOGIN_REQUEST",
+    LOGIN_RESPONSE: "LOGIN_RESPONSE",
+    REDIRECT: "REDIRECT",
+    LOAD_EVENTS: "LOAD_EVENTS",
+    RECEIVE_EVENTS: "RECEIVE_EVENTS",
+    LOAD_CAL: "LOAD_CAL",
+    CHANGE_DISPLAY: "CHANGE_DISPLAY",
+    CHANGE_BUTTON: "CHANGE_BUTTON",
+    CHANGE_FILTER: "CHANGE_FILTER"
+  }
+  
+
+};
+
+module.exports = appConstants;
+</code>
 
 <p>One more simple file before we take a look at our app's actions. Our constants file, located in constants/appConstants.js, is an object with properties that correspond to our various actions. If you think back to the switch statement in our store, you'll recall that it evaluated the value of action.actionType. The constants in this file are what that value will be. Each constant corresponds to an action.</p>
 
@@ -156,7 +329,9 @@
 
 <p>Still, some people object to the use of constants and prefer to do away with them. If you're of the same mind, I suggest checking out the Reflux or Delorean implementations.</p>
 
-<h3>
+<p>Check back soon for more as we take a look at the app's actions and go into each component.</p>
+
+<!--<h3>
 <a id="actions" class="anchor" href="#actions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Actions</h3>
 
 <p>The last of our non-component files is our actions file, located at /actions/calendarActions.js.</p>
