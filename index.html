@@ -92,13 +92,13 @@
 
 <p>Open up stores/calendarStore.js. The store file is relatively long, so let's go piece by piece.</p>
 
-<code>var AppDispatcher = require('../dispatcher/AppDispatcher');
-var appConstants = require('../constants/appConstants');
-var objectAssign = require('react/lib/Object.assign');
-var EventEmitter = require('events').EventEmitter;
-var moment = require('moment');
+<code>var AppDispatcher = require('../dispatcher/AppDispatcher');<br>
+var appConstants = require('../constants/appConstants');<br>
+var objectAssign = require('react/lib/Object.assign');<br>
+var EventEmitter = require('events').EventEmitter;<br>
+var moment = require('moment');<br>
 
-var CHANGE_EVENT = 'change';
+var CHANGE_EVENT = 'change';<br>
 </code>
 
 <p>The beginning of our store is where we include our actions, constants, object assign, and event emitter. Object assign and event emitter are part of the flux boilerplate code. Together they allow the store to emit change events in response to actions received from components. Our top-level controller view components listen for change events and respond by refreshing their data and re-rendering themselves and their child components.</p>
@@ -106,34 +106,34 @@ var CHANGE_EVENT = 'change';
 <p>This portion of our store consists of our event helpers as well as our getter methods. The getter methods obtain the current values in the _store variable. The calendarStore object that these methods exist on is what we will export at the end of our store file, and what all of our other components will be able to access. This ensures that other components can't modify the _store variable on their own - all they can do is retrieve the data in _store, or trigger actions that the store processes using its private setter methods.</p>
 
 <code>
-var calendarStore = objectAssign({}, EventEmitter.prototype, {
-  addChangeListener: function(cb) {
-    this.on(CHANGE_EVENT, cb);
-  },
-  removeChangeListener: function(cb) {
-    this.removeListener(CHANGE_EVENT, cb);
-  },
-  getToday: function() {
-    return _store.today;
-  },
-  getDisplayed: function() {
-    return _store.displayed;
-  },
-  getSelected: function() {
-    return _store.selectedDay;
-  },
-  getSearch: function() {
-    return _store.search;
-  },
-  getEvents: function() {
-    return _store.events;
-  },
-  getButton: function() {
-    return _store.buttonBar;
-  },
-  getFilter: function() {
-    return _store.filter;
-  }
+var calendarStore = objectAssign({}, EventEmitter.prototype, {<br>
+  addChangeListener: function(cb) {<br>
+    this.on(CHANGE_EVENT, cb);<br>
+  },<br>
+  removeChangeListener: function(cb) {<br>
+    this.removeListener(CHANGE_EVENT, cb);<br>
+  },<br>
+  getToday: function() {<br>
+    return _store.today;<br>
+  },<br>
+  getDisplayed: function() {<br>
+    return _store.displayed;<br>
+  },<br>
+  getSelected: function() {<br>
+    return _store.selectedDay;<br>
+  },<br>
+  getSearch: function() {<br>
+    return _store.search;<br>
+  },<br>
+  getEvents: function() {<br>
+    return _store.events;<br>
+  },<br>
+  getButton: function() {<br>
+    return _store.buttonBar;<br>
+  },<br>
+  getFilter: function() {<br>
+    return _store.filter;<br>
+  }<br>
 });
 </code>
 
@@ -142,53 +142,53 @@ var calendarStore = objectAssign({}, EventEmitter.prototype, {
 <p>Next, we create the _store variable, which is our data model. Store is an object that contains properties for all of the necessary data in our application. Here, we set the initial state of our store. This is what our data will be set to on the initial render of our app.</p>
 
 <code>
-var _store = {
-  // today is set when app loads and does not change
-  today: {
-    date: moment(),
-    year: moment().year(),
-    month: moment().format('MMMM'),
-    // monthIndex is the month number obtained from moment, incremented by 1 to match node-calendar's format
-    monthIndex: moment().month() + 1,
-    weekIndex: moment().week(),
-    dayIndex: moment().date(),
-    time: moment().format('h:mm a')
+var _store = {<br>
+  // today is set when app loads and does not change<br>
+  today: {<br>
+    date: moment(),<br>
+    year: moment().year(),<br>
+    month: moment().format('MMMM'),<br>
+    // monthIndex is the month number obtained from moment, incremented by 1 to match node-calendar's format<br>
+    monthIndex: moment().month() + 1,<br>
+    weekIndex: moment().week(),<br>
+    dayIndex: moment().date(),<br>
+    time: moment().format('h:mm a')<br>
 
-  },
-  // display is the date information that is currently displayed in the calendar view, and is updated via user interaction
-  // we initially set displayed to match today's date so that calendar can render before API returns data
-  displayed: {
-    date: moment(),
-    year: moment().year(),
-    month: moment().format('MMMM'),
-    monthIndex: moment().month() + 1,
-    weekIndex: moment().week(),
-    dayIndex: moment().date(),
-    time: moment().format('h:mm a')
-  },
-  // selected is the current user selected day. On initial state it is set to today. Selected day is the day displayed in the task card.
-  selectedDay: {
-    date: moment(),
-    year: moment().year(),
-    month: moment().format('MMMM'),
-    monthIndex: moment().month() + 1,
-    weekIndex: moment().week(),
-    dayIndex: moment().date(),
-  },
-  search: '',
-  events: [],
-  // Button bar is the navigation bar on the top of the calendar. Each property controls whether a specific button has an "active" style applied.
-  buttonBar: {
-    dayActive: false,
-    weekActive: false,
-    monthActive: true,
-    yearActive: false
-  },
-  filter: {
-    helpShown: true,
-    needsMetShown: true,
-    occasionsShown: true
-  }
+  },<br>
+  // display is the date information that is currently displayed in the calendar view, and is updated via user interaction<br>
+  // we initially set displayed to match today's date so that calendar can render before API returns data<br>
+  displayed: {<br>
+    date: moment(),<br>
+    year: moment().year(),<br>
+    month: moment().format('MMMM'),<br>
+    monthIndex: moment().month() + 1,<br>
+    weekIndex: moment().week(),<br>
+    dayIndex: moment().date(),<br>
+    time: moment().format('h:mm a')<br>
+  },<br>
+  // selected is the current user selected day. On initial state it is set to today. Selected day is the day displayed in the task card.<br>
+  selectedDay: {<br>
+    date: moment(),<br>
+    year: moment().year(),<br>
+    month: moment().format('MMMM'),<br>
+    monthIndex: moment().month() + 1,<br>
+    weekIndex: moment().week(),<br>
+    dayIndex: moment().date(),<br>
+  },<br>
+  search: '',<br>
+  events: [],<br>
+  // Button bar is the navigation bar on the top of the calendar. Each property controls whether a specific button has an "active" style applied.<br>
+  buttonBar: {<br>
+    dayActive: false,<br>
+    weekActive: false,<br>
+    monthActive: true,<br>
+    yearActive: false<br>
+  },<br>
+  filter: {<br>
+    helpShown: true,<br>
+    needsMetShown: true,<br>
+    occasionsShown: true<br>
+  }<br>
   
 }
 </code>
@@ -196,40 +196,40 @@ var _store = {
 <p>Next, we have our setter methods. These are the methods that our store will call when the dispatcher sends it a payload and an action type. All that these methods do is modify the values set in the _store variable. In the case of changeSearch and selectDay, the methods simply take the data passed to them and update the store accordingly.</p>
 
 <code>
-var changeButton = function(data) {
-  _store.buttonBar = data;
-}
+var changeButton = function(data) {<br>
+  _store.buttonBar = data;<br>
+}<br>
 
-var changeSearch = function(data) {
-  _store.search = data;
-};
+var changeSearch = function(data) {<br>
+  _store.search = data;<br>
+};<br>
 
-var changeFilter = function(data) {
-  _store.filter = data;
-};
+var changeFilter = function(data) {<br>
+  _store.filter = data;<br>
+};<br>
 
-var selectDay = function(data) {
-  _store.selectedDay = data;
-};
+var selectDay = function(data) {<br>
+  _store.selectedDay = data;<br>
+};<br>
 
-var changeDisplay = function(data) {
+var changeDisplay = function(data) {<br>
 
-  _store.displayed = data;
-};
+  _store.displayed = data;<br>
+};<br>
 
-var updateEvents = function(data) {
-  var formattedEvents = data.events.map(function(item) {
-      return(
-        {
-          category: item.category,
-          content: item.content,
-          help: item.help,
-          moment: moment(item.date),
-          time: moment(item.date).format('h:mm a'),
-          hour: moment(item.date).format('h a')
-        }
-      )
-    });
+var updateEvents = function(data) {<br>
+  var formattedEvents = data.events.map(function(item) {<br>
+      return(<br>
+        {<br>
+          category: item.category,<br>
+          content: item.content,<br>
+          help: item.help,<br>
+          moment: moment(item.date),<br>
+          time: moment(item.date).format('h:mm a'),<br>
+          hour: moment(item.date).format('h a')<br>
+        }<br>
+      )<br>
+    });<br>
   _store.events = formattedEvents;
 
 };
@@ -240,35 +240,35 @@ var updateEvents = function(data) {
 <p>Finally, we have our store's callback function and the export statement. With Flux, every store registers a callback function with the app's dispatcher. Typically, the callback is simply a switch statement that processes the data received from the dispatcher.</p>
 
 <code>
-calendarStore.dispatchToken = AppDispatcher.register(function(action){
-  switch(action.actionType){
-    case appConstants.ActionTypes.CHANGE_BUTTON:
-      changeButton(action.data);
-      calendarStore.emit(CHANGE_EVENT);
-      break;
-    case appConstants.ActionTypes.CHANGE_SEARCH:
-      changeSearch(action.data);
-      calendarStore.emit(CHANGE_EVENT);
-      break;
-    case appConstants.ActionTypes.SELECT_DAY:
-      selectDay(action.data);
-      calendarStore.emit(CHANGE_EVENT);
-      break;
-    case appConstants.ActionTypes.RECEIVE_EVENTS:
-      updateEvents(action.json);
-      calendarStore.emit(CHANGE_EVENT);
-      break;
-    case appConstants.ActionTypes.CHANGE_DISPLAY:
-      changeDisplay(action.data);
-      calendarStore.emit(CHANGE_EVENT);
-      break;
-    case appConstants.ActionTypes.CHANGE_FILTER:
-      changeFilter(action.data);
-      calendarStore.emit(CHANGE_EVENT);
-    default:
-      return true;
-  }
-});
+calendarStore.dispatchToken = AppDispatcher.register(function(action){<br>
+  switch(action.actionType){<br>
+    case appConstants.ActionTypes.CHANGE_BUTTON:<br>
+      changeButton(action.data);<br>
+      calendarStore.emit(CHANGE_EVENT);<br>
+      break;<br>
+    case appConstants.ActionTypes.CHANGE_SEARCH:<br>
+      changeSearch(action.data);<br>
+      calendarStore.emit(CHANGE_EVENT);<br>
+      break;<br>
+    case appConstants.ActionTypes.SELECT_DAY:<br>
+      selectDay(action.data);<br>
+      calendarStore.emit(CHANGE_EVENT);<br>
+      break;<br>
+    case appConstants.ActionTypes.RECEIVE_EVENTS:<br>
+      updateEvents(action.json);<br>
+      calendarStore.emit(CHANGE_EVENT);<br>
+      break;<br>
+    case appConstants.ActionTypes.CHANGE_DISPLAY:<br>
+      changeDisplay(action.data);<br>
+      calendarStore.emit(CHANGE_EVENT);<br>
+      break;<br>
+    case appConstants.ActionTypes.CHANGE_FILTER:<br>
+      changeFilter(action.data);<br>
+      calendarStore.emit(CHANGE_EVENT);<br>
+    default:<br>
+      return true;<br>
+  }<br>
+});<br>
 
 module.exports = calendarStore;
 </code>
