@@ -294,35 +294,33 @@ module.exports = new AppDispatcher();
 <a id="constants" class="anchor" href="#constants" aria-hidden="true"><span class="octicon octicon-link"></span></a>Constants</h3>
 
 <code>
-<p>
 var APIRoot = "https://sheltered-shelf-4779.herokuapp.com";
-&#13;
+<br>
 var appConstants = {
-&#13;
-  APIEndpoints: { &#13;
-    LOGIN: APIRoot + "/api/v1/login", &#13;
-    EVENTS: APIRoot + "/api/v1/events", &#13;
-  }, &#13;
-&#13;
-  ActionTypes: { &#13;
-    CHANGE_SEARCH: "CHANGE_SEARCH", &#13;
-    SELECT_DAY: "SELECT_DAY", &#13;
-    LOGIN_REQUEST: "LOGIN_REQUEST", &#13;
-    LOGIN_RESPONSE: "LOGIN_RESPONSE", &#13;
-    REDIRECT: "REDIRECT", &#13;
-    LOAD_EVENTS: "LOAD_EVENTS", &#13;
-    RECEIVE_EVENTS: "RECEIVE_EVENTS", &#13;
-    LOAD_CAL: "LOAD_CAL", &#13;
-    CHANGE_DISPLAY: "CHANGE_DISPLAY", &#13;
-    CHANGE_BUTTON: "CHANGE_BUTTON", &#13;
-    CHANGE_FILTER: "CHANGE_FILTER" &#13;
-  } &#13;
+<br>
+  APIEndpoints: { <br>
+    LOGIN: APIRoot + "/api/v1/login", <br>
+    EVENTS: APIRoot + "/api/v1/events", <br>
+  }, <br>
+<br>
+  ActionTypes: { <br>
+    CHANGE_SEARCH: "CHANGE_SEARCH", <br>
+    SELECT_DAY: "SELECT_DAY", <br>
+    LOGIN_REQUEST: "LOGIN_REQUEST", <br>
+    LOGIN_RESPONSE: "LOGIN_RESPONSE", <br>
+    REDIRECT: "REDIRECT", <br>
+    LOAD_EVENTS: "LOAD_EVENTS", <br>
+    RECEIVE_EVENTS: "RECEIVE_EVENTS", <br>
+    LOAD_CAL: "LOAD_CAL", <br>
+    CHANGE_DISPLAY: "CHANGE_DISPLAY", <br>
+    CHANGE_BUTTON: "CHANGE_BUTTON", <br>
+    CHANGE_FILTER: "CHANGE_FILTER" <br>
+  } <br>
   
 
-}; &#13;
+}; <br>
 
 module.exports = appConstants; &#13
-</p>
 </code>
 
 <p>One more simple file before we take a look at our app's actions. Our constants file, located in constants/appConstants.js, is an object with properties that correspond to our various actions. If you think back to the switch statement in our store, you'll recall that it evaluated the value of action.actionType. The constants in this file are what that value will be. Each constant corresponds to an action.</p>
